@@ -5,6 +5,7 @@ import { createClient } from "../../../supabase/client";
 import { Database } from "@/types/supabase";
 import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import MessageReaction from "./message-reaction";
 
 type Message = Database["public"]["Tables"]["messages"]["Row"] & {
   users: {
@@ -120,6 +121,10 @@ export default function MessageList({ channelId }: { channelId: string }) {
                 <p className="text-gray-800 dark:text-gray-200">
                   {message.content}
                 </p>
+                <MessageReaction
+                  messageId={message.id}
+                  userId={message.user_id}
+                />
               </div>
             </div>
           ))}
