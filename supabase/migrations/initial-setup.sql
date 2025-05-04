@@ -99,6 +99,7 @@ $$;
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
+  -- Insert the user record
   INSERT INTO public.users (
     id,
     user_id,
@@ -120,6 +121,32 @@ BEGIN
     NEW.created_at,
     NEW.updated_at
   );
+
+  -- Create free tier subscription immediately
+  INSERT INTO public.subscriptions (
+    user_id,
+    status,
+    interval,
+    amount,
+    currency,
+    started_at,
+    current_period_start,
+    current_period_end,
+    created_at,
+    updated_at
+  ) VALUES (
+    NEW.id::text,
+    'active',
+    'month',
+    0,
+    'usd',
+    extract(epoch from now()),
+    extract(epoch from now()),
+    extract(epoch from now() + interval '30 days'),
+    now(),
+    now()
+  );
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -150,4 +177,8 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 DROP TRIGGER IF EXISTS on_auth_user_updated ON auth.users;
 CREATE TRIGGER on_auth_user_updated
   AFTER UPDATE ON auth.users
-  FOR EACH ROW EXECUTE FUNCTION public.handle_user_update(); 
+  FOR EACH ROW EXECUTE FUNCTION public.handle_user_update();
+
+-- Remove the email confirmation trigger since we're creating subscription immediately
+DROP TRIGGER IF EXISTS on_auth_user_confirmed ON auth.users;
+DROP FUNCTION IF EXISTS public.handle_confirmed_user; 

@@ -36,7 +36,7 @@ export default async function Dashboard() {
             <div className="bg-secondary/50 text-sm p-3 px-4 rounded-lg text-muted-foreground flex gap-2 items-center">
               <InfoIcon size="14" />
               <span>
-                Welcome to ChatTogether! Join channels and start messaging in
+                Welcome to Pulsevera! Join channels and start messaging in
                 real-time.
               </span>
             </div>
@@ -78,7 +78,7 @@ export default async function Dashboard() {
                     {recentChannels.map((channel) => (
                       <Link
                         key={channel.id}
-                        href={`/dashboard/channels/${channel.id}`}
+                        href={`/dashboard/channels/g{channel.id}`}
                         className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 transition-colors"
                       >
                         <Hash className="h-5 w-5 text-indigo-500" />

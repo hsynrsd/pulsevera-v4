@@ -26,7 +26,7 @@ export default function DashboardNavbar() {
             className="text-xl font-bold flex items-center"
           >
             <MessageSquare className="h-6 w-6 text-indigo-600 mr-2" />
-            <span>ChatTogether</span>
+            <span>Pulsevera</span>
           </Link>
           <div className="hidden md:flex items-center space-x-4">
             <Link

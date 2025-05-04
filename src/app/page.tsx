@@ -12,8 +12,10 @@ import {
   Shield,
   Hash,
   Globe,
+  ArrowRight,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -26,16 +28,18 @@ export default async function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-background">
       <Navbar />
+      
+      {/* Hero Section */}
       <Hero />
 
       {/* Features Section */}
-      <section className="py-24 bg-white" id="features">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Modern Chat Experience</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-foreground">Modern Chat Experience</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               A feature-rich messaging platform designed for teams, communities,
               and friends.
             </p>
@@ -66,11 +70,11 @@ export default async function Home() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                className="p-6 bg-card rounded-xl shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="text-indigo-600 mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <div className="text-primary mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -78,62 +82,49 @@ export default async function Home() {
       </section>
 
       {/* App Preview Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="lg:w-1/2">
-              <div className="bg-white p-4 rounded-xl shadow-lg">
-                <div className="aspect-w-16 aspect-h-9 bg-gray-100 rounded-lg overflow-hidden relative">
-                  <Image
-                    src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80"
-                    alt="Chat Application Interface"
-                    width={800}
-                    height={450}
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="lg:w-1/2">
-              <h2 className="text-3xl font-bold mb-6">
-                Designed for Productivity
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6 text-foreground">
+                Experience the Future of Team Communication
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="bg-indigo-100 p-2 rounded-lg">
-                    <Users className="w-6 h-6 text-indigo-600" />
+                  <div className="bg-primary/10 p-2 rounded-lg">
+                    <Users className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-1">
+                    <h3 className="text-xl font-semibold mb-1 text-foreground">
                       Team Collaboration
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-muted-foreground">
                       Create channels for different teams, projects, or topics.
                       Keep conversations organized and accessible.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="bg-indigo-100 p-2 rounded-lg">
-                    <Globe className="w-6 h-6 text-indigo-600" />
+                  <div className="bg-primary/10 p-2 rounded-lg">
+                    <Globe className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-1">Open Source</h3>
-                    <p className="text-gray-600">
+                    <h3 className="text-xl font-semibold mb-1 text-foreground">Open Source</h3>
+                    <p className="text-muted-foreground">
                       Built with transparency and community in mind. Contribute
                       to the project or customize it for your needs.
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="bg-indigo-100 p-2 rounded-lg">
-                    <Zap className="w-6 h-6 text-indigo-600" />
+                  <div className="bg-primary/10 p-2 rounded-lg">
+                    <Zap className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-1">
+                    <h3 className="text-xl font-semibold mb-1 text-foreground">
                       Lightning Fast
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-muted-foreground">
                       Built on modern technologies for optimal performance.
                       Messages are delivered instantly.
                     </p>
@@ -145,34 +136,14 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-indigo-600 text-white">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold mb-2">10K+</div>
-              <div className="text-indigo-100">Active Users</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">5K+</div>
-              <div className="text-indigo-100">Active Channels</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">99.9%</div>
-              <div className="text-indigo-100">Uptime Guaranteed</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Section */}
-      <section className="py-24 bg-white" id="pricing">
+      <section className="py-24 bg-background" id="pricing">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl font-bold mb-4 text-foreground">
               Simple, Transparent Pricing
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               Choose the perfect plan for your needs. Support our open-source
               project.
             </p>
@@ -186,20 +157,34 @@ export default async function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Join Our Community Today</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Experience the future of team communication with our real-time
-            messaging platform.
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {user ? 'Ready to Chat?' : 'Join Our Community Today'}
+          </h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+            {user 
+              ? 'Your team is waiting for you. Jump back into the conversation.'
+              : 'Experience the future of team communication with our real-time messaging platform.'
+            }
           </p>
-          <a
-            href="/sign-up"
-            className="inline-flex items-center px-6 py-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors"
-          >
-            Create Your Account
-            <ArrowUpRight className="ml-2 w-4 h-4" />
-          </a>
+          {user ? (
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center px-6 py-3 text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Go to Dashboard
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Link>
+          ) : (
+            <Link
+              href="/sign-up"
+              className="inline-flex items-center px-6 py-3 text-white bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Create Your Account
+              <ArrowUpRight className="ml-2 w-4 h-4" />
+            </Link>
+          )}
         </div>
       </section>
 
